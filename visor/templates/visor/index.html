@@ -8,16 +8,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% load static %}
-	<script src="{% static "JS/index.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/index.css' %}">
 </head>
 <body>
-<textarea rows="30" cols="80" style="max-width: 45%; float: left; margin: 40px; margin-top: 80px">
-{{file}}
-</textarea>
+<div id="textarea" contenteditable>{{file_open}}</div>
 
 <ul>
     {% for item in output_id %}
         <li class="identificadores" style="display: none">{{item}}</li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for item in line_errors %}
+        <li class="errors" style="display: none">{{item}}</li>
     {% endfor %}
 </ul>
 
@@ -32,6 +36,7 @@
     <tbody>
     {% for item in output_list %}
         <tr onclick = "ClickEvent(event)">
+            {% csrf_token %}
             <td class = "rows">{{ item }}</td>
         </tr>
     {% endfor %}
@@ -39,4 +44,8 @@
   </table>
 </div>
 </body>
+<div id="temp"></div>
+<script src="{% static 'JS/index.js' %}"></script>
+
 </html>
+

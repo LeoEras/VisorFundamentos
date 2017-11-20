@@ -1,0 +1,22 @@
+#textarea {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid gray;
+    font: medium -moz-fixed;
+    font: -webkit-small-control;
+    height: 85%;
+    overflow: auto;
+    margin-left: 40px;
+    margin-top: 40px;
+    resize: both;
+    width: 45%;
+    position: fixed;
+    max-width: 45%;
+    float: left;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
