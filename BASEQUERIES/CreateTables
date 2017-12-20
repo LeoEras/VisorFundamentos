@@ -1,0 +1,20 @@
+DROP TABLE errores;
+DROP TABLE estudiantes;
+CREATE TABLE estudiantes (
+        estudiante_id SMALLSERIAL PRIMARY KEY,
+        matricula VARCHAR(10) UNIQUE NOT NULL,
+    	cedula VARCHAR(10) UNIQUE NOT NULL,
+    	nombres VARCHAR(30),
+    	apellidos VARCHAR(30),
+    	paralelo SMALLINT
+);
+
+CREATE TABLE errores(
+ error_id SMALLSERIAL PRIMARY KEY,
+ user_id SMALLSERIAL REFERENCES estudiantes(estudiante_id),
+ fecha TIMESTAMPTZ NOT NULL,
+ proyecto VARCHAR (50) NOT NULL,
+ error VARCHAR (355) NOT NULL,
+ tipo_error VARCHAR (25) NOT NULL,
+ ruta_archivo VARCHAR (255)
+);

@@ -4,48 +4,66 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
+
+.square {
+    float:left;
+    position: relative;
+    width: 30%;
+    padding-bottom : 30%; /* = width for a 1:1 aspect ratio */
+    margin:1.66%;
+    background-color:#1E1E1E;
+    overflow:hidden;
+}
+
+.content {
+    position:absolute;
+    height:90%; /* = 100% - 2*5% padding */
+    width:90%; /* = 100% - 2*5% padding */
+    padding: 5%;
+
+}
+
+body {
+    font-size:1vw;
+    font-family: 'Lato',verdana, sans-serif;
+    color: #fff;
+    background:#ECECEC;
+}
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'CSS/index.css' %}">
+
 </head>
-<body>
-<div id="textarea" contenteditable>{{file_open}}</div>
+<body style="font-size:20px; font-family: 'Lato',verdana, sans-serif; color: #fff; background:#ECECEC;">
 
-<ul>
-    {% for item in output_id %}
-        <li class="identificadores" style="display: none">{{item}}</li>
-    {% endfor %}
-</ul>
-
-<ul>
-    {% for item in line_errors %}
-        <li class="errors" style="display: none">{{item}}</li>
-    {% endfor %}
-</ul>
-
-<div class="container" style="max-width: 48%; float: right">
-  <h2>Errores</h2>
-  <table class="table table-striped" id ="table">
-    <thead>
-      <tr>
-        <th>Exepci&oacute;n</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for item in output_list %}
-        <tr onclick = "ClickEvent(event)">
-            {% csrf_token %}
-            <td class = "rows">{{ item }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+<div class="square">
+    <div class="content">
+        <div class="container">
+          <h2>An&aacute;lisis grupal</h2>
+          <p>Revisi&oacute;n de todo un curso.</p>
+          <button class="btn btn-default">Ver curso</button>
+        </div>
+    </div>
 </div>
-</body>
-<div id="temp"></div>
-<script src="{% static 'JS/index.js' %}"></script>
 
+<div class="square">
+    <div class="content">
+        <div class="container" style="max-width: 325px;">
+          <h2 style="font-size: 2.5vw;">An&aacute;lisis individual</h2>
+          <p style="word-wrap: break-word;">Por favor, ingrese el n&uacute;mero de c&eacute;dula o matr&iacute;cula del estudiante.</p>
+          <form action="{% url 'individual' %}" method="get">
+            <div class="form-group">
+              <label for="usr">Identificador:</label>
+              <input type="text" class="form-control" id="usr" name="Identificador", style="max-width: 325px;">
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+</body>
 </html>
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/index.css' %}">
+</head>
+<body>
+<div id="textarea" contenteditable>{{file_open}}</div>
+
+<ul>
+    {% for item in output_id %}
+        <li class="identificadores" style="display: none">{{item}}</li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for item in line_errors %}
+        <li class="errors" style="display: none">{{item}}</li>
+    {% endfor %}
+</ul>
+
+<select id="select" onchange="SelectEvent();">
+    {% for item in directory_list %}
+        <option value={{ item }}>{{ item }}</option>
+    {% endfor %}
+</select>
+<p id="selectMSG"></p>
+<div class="container" style="max-width: 48%; float: right">
+  <h2>Errores</h2>
+  <table class="table table-striped" id ="table">
+    <thead>
+      <tr>
+        <th>Exepci&oacute;n</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in output_list %}
+        <tr onclick = "ClickEvent(event);">
+            {% csrf_token %}
+            <td class = "rows">{{ item }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+<div id="temp"></div>
+<script src="{% static 'JS/index.js' %}"></script>
+
+</html>
+
