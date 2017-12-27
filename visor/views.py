@@ -30,10 +30,10 @@ def index(request):
 def individual(request):
     list_dir = []
     identificador = request.GET.get('Identificador', "")
-    for item in os.listdir("visor\\gits\\"+ identificador + "\\"):
+    for item in os.listdir("BASEQUERIES/"+ identificador + "/"):
         if ".git" in item:
             continue
-        if os.path.isdir(path.realpath("visor\\gits\\" + identificador + "\\" + item)):
+        if os.path.isdir(path.realpath("BASEQUERIES/" + identificador + "/" + item)):
             list_dir.append(item)
 
     if request.method == 'POST':
@@ -41,7 +41,7 @@ def individual(request):
             id_file = request.POST.get('id')
             proj_dir = request.POST.get('selected')
             if id_file is not None:
-                path_file = path.realpath("visor\\gits\\" + identificador + "\\" + proj_dir)
+                path_file = path.realpath("BASEQUERIES/" + identificador + "/" + proj_dir)
                 file_open = open("".join(glob.iglob(os.path.join(path_file, "*" + id_file + "*"))), encoding='utf-8')
                 file_open = file_open.read()
                 return JsonResponse({'file_open': file_open})
@@ -61,7 +61,7 @@ def individual(request):
     #return render_to_response('visor/individual.html', context_instance=RequestContext(request))
 
 def getLogData(selected_dir, identificador):
-    logs = path.realpath("visor\\gits\\" + identificador + "\\" + selected_dir + "\\log.xml")
+    logs = path.realpath("BASEQUERIES/" + identificador + "/" + selected_dir + "/log.xml")
     e = xml.etree.ElementTree.parse(logs).getroot()
     list_output = []
     output_id = []

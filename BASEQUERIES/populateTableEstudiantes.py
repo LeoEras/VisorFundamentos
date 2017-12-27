@@ -2,7 +2,7 @@ import psycopg2
 import sys
 import pprint
 
-conn_string = "host='localhost' dbname='Fundamentos' user='postgres' password='gPw19KX3_'"
+conn_string = "host='127.0.0.1' dbname='Fundamentos' user='root' password='042nTh891L'"
 
 # get a connection, if a connect cannot be made an exception will be raised here
 conn = psycopg2.connect(conn_string)
@@ -15,7 +15,7 @@ try:
 except psycopg2.IntegrityError:
     pass
 
-file = open("C:\\Users\\leonardo.eras\\Downloads\\FUNDAMENTOS DE PROGRAMACION 107_csv.csv")
+file = open("/Fundamentos/VisorFundamentos/BASEQUERIES/FUNDAMENTOS DE PROGRAMACION 107_csv.csv", encoding='latin-1')
 for line in file:
     estudiante = line.split(";")
     if len(estudiante) > 1:
@@ -27,7 +27,7 @@ for line in file:
         except (psycopg2.IntegrityError, psycopg2.InternalError):
             continue
 
-file = open("C:\\Users\\leonardo.eras\\Downloads\\FUNDAMENTOS DE PROGRAMACION 207_csv.csv")
+file = open("/Fundamentos/VisorFundamentos/BASEQUERIES/FUNDAMENTOS DE PROGRAMACION 207_csv.csv", encoding='latin-1')
 for line in file:
     estudiante = line.split(";")
     if len(estudiante) > 1:
@@ -41,6 +41,7 @@ for line in file:
         
 
 conn.commit()
+file.close()
 
 # Close communication with the database
 cursor.close()

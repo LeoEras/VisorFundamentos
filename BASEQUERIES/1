@@ -20,9 +20,9 @@ def getID(user_identification, estudiantes):
     for record in estudiantes:
         if str(user_identification) in str(record[1])or str(user_identification) in str(record[2]):
             return record[0]
-    return estudiantes[0][0] 
+    return 1
 
-conn_string = "host='127.0.0.1' dbname='Fundamentos' user='root' password='042nTh891L'"
+conn_string = "host='localhost' dbname='Fundamentos' user='root' password='042nTh891L'"
 
 conn = psycopg2.connect(conn_string)
 cursor = conn.cursor()
@@ -32,11 +32,15 @@ estudiantes = cursor.fetchall()
 
 base_path = os.path.dirname(os.path.realpath(__file__))
 folders = [f for f in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, f))]
-
+#print(base_path)
+#print(folders)
 for item in folders:
     if "master" in item:
         continue
     real_folder_path = os.path.dirname(os.path.realpath(item)) + "/" + item + "/"
+    print(real_folder_path)
+    print(os.path.dirname(os.path.realpath(real_folder_path)))
+    print(os.listdir(real_folder_path))
     project_folders = [f for f in os.listdir(real_folder_path) if os.path.isdir(os.path.join(real_folder_path, f))]
 #    print(project_folders)
     for folder in project_folders:
@@ -44,7 +48,7 @@ for item in folders:
             continue
         else:
             project_path = os.path.dirname(os.path.realpath(item + "/" + folder)) + "/" + folder
-            log = project_path + "/log.xml"
+            log = project_path + "\\log.xml"
             error_caller_file = []
             try:
                 element = xml.parse(log).getroot()
@@ -81,9 +85,8 @@ for item in folders:
                             error_caller_file = None
 
                     cursor.execute("INSERT INTO errores(user_id, fecha, proyecto, error, tipo_error, ruta_archivo) VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING", (getID(item, estudiantes), date, pro_name, line_error, error_thrown, error_caller_file))
-            except Exception as e:
+            except:
                 print(sys.exc_info())
-                print(e)
 
 conn.commit()
 cursor.close()
